@@ -21,6 +21,9 @@ router.post(
   validate(userValidator.register),
   userController.register
 );
+
+router.get("/user", userController.allUsers);
+
 router.get("/me", userController.profile);
 
 router.get("/message", messageController.allMessage);

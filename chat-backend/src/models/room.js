@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Room.associate = function (models) {
-    Room.hasMany(models.Message, { foreignKey: "id" });
-    Room.hasMany(models.RoomMember, { foreignKey: "id" });
+    Room.hasMany(models.Message);
+    Room.hasMany(models.RoomMember);
     Room.belongsToMany(models.User, { through: models.RoomMember });
   };
   return Room;

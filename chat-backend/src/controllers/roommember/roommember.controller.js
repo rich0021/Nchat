@@ -1,11 +1,9 @@
-import { RoomMember } from "../../models";
+import { RoomMember, Room, Message } from "../../models";
 import { successResponse, errorResponse } from "../../helpers";
 
 export const allRoomMember = async (req, res) => {
   try {
-    const roommember = await RoomMember.findAll({
-      include: ["User", "Room"],
-    });
+    const roommember = await RoomMember.findAll();
     successResponse(req, res, roommember);
   } catch (error) {
     return errorResponse(req, res, error.message);

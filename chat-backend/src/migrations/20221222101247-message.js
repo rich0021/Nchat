@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      senderid: {
+      userid: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },

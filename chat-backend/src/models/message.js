@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      senderid: {
+      userid: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Message.associate = function (models) {
-    Message.belongsTo(models.User, { foreignKey: "senderId" });
+    Message.belongsTo(models.User, { foreignKey: "userId" });
     Message.belongsTo(models.Room, { foreignKey: "roomId" });
   };
   return Message;

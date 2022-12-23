@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   User.associate = function (models) {
-    User.hasMany(models.Message, { foreignKey: "id" });
-    User.hasMany(models.RoomMember, { foreignKey: "id" });
+    User.hasMany(models.Message);
+    User.hasMany(models.RoomMember);
     User.belongsToMany(models.Room, {
       through: models.RoomMember,
     });

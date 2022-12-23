@@ -1,9 +1,24 @@
-import { Room } from "../../models";
+import { Room, RoomMember, Message } from "../../models";
 import { successResponse, errorResponse } from "../../helpers";
+const { messageEvent } = require("../../events/index");
 
 export const allRoom = async (req, res) => {
   try {
-    const room = await Room.findAll();
+    const room = await Room.findAll({
+      include: [
+        {
+          model: RoomMember,
+          require: true,
+          where: {
+            userId: req.user.userId,
+          },
+          attributes: [],
+        },
+        {
+          model: Message,
+        },
+      ],
+    });
     successResponse(req, res, room);
   } catch (error) {
     return errorResponse(req, res, error.message);

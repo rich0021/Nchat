@@ -1,19 +1,14 @@
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
-import { User } from "../../models";
+import { User, Message, RoomMember } from "../../models";
 import { successResponse, errorResponse } from "../../helpers";
 
 export const allUsers = async (req, res) => {
   try {
     const page = req.params.page || 1;
     const limit = 2;
-    const users = await User.findAndCountAll({
-      order: [
-        ["createdAt", "DESC"],
-        ["username", "ASC"],
-      ],
-      offset: (page - 1) * limit,
-      limit,
+    const users = await User.findAll({
+      include: RoomMember,
     });
     return successResponse(req, res, { users });
   } catch (error) {

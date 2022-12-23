@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -16,11 +16,30 @@ import {
   TypingIndicator,
   MessageSeparator,
 } from "@chatscope/chat-ui-kit-react";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:8000");
 
 function App() {
   const [message, setMessage] = useState([]);
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("connected");
+    });
+
+    socket.on("disconnect", () => {
+      socket.off("test");
+      console.log("disconnected");
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+    };
+  }, []);
 
   const onChangeMessage = (e) => {
     if (e.length > 0 || e != null || e != undefined) {
